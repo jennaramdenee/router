@@ -44,13 +44,13 @@ var _ = Describe("Redirection", func() {
 
 		It("should contain cache headers of 24hrs", func() {
 			resp := routerRequest("/foo")
-			Expect(resp.Header.Get("Cache-Control")).To(Equal("max-age=86400, public"))
+			Expect(resp.Header.Get("Cache-Control")).To(Equal("max-age=1800, public"))
 
 			Expect(
 				time.Parse(time.RFC1123, resp.Header.Get("Expires")),
 			).To(BeTemporally(
 				"~",
-				time.Now().Add(24*time.Hour),
+				time.Now().Add(30*time.Minute),
 				time.Second,
 			))
 		})
@@ -87,13 +87,13 @@ var _ = Describe("Redirection", func() {
 
 		It("should contain cache headers of 24hrs", func() {
 			resp := routerRequest("/foo")
-			Expect(resp.Header.Get("Cache-Control")).To(Equal("max-age=86400, public"))
+			Expect(resp.Header.Get("Cache-Control")).To(Equal("max-age=1800, public"))
 
 			Expect(
 				time.Parse(time.RFC1123, resp.Header.Get("Expires")),
 			).To(BeTemporally(
 				"~",
-				time.Now().Add(24*time.Hour),
+				time.Now().Add(30*time.Minute),
 				time.Second,
 			))
 		})
