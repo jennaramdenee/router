@@ -1,0 +1,7 @@
+image: go1.3
+services:
+  - mongodb
+script:
+  - export PATH=$PATH:$GOPATH/bin
+  - go get github.com/mattn/gom
+  - make test
