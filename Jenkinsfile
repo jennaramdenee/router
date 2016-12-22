@@ -52,6 +52,21 @@ node ('mongodb-2.4') {
     stage("Archive Artifact") {
       archiveArtifacts 'router'
     }
+  
+    stage("publish to s3") {
+      step([$class: 'S3BucketPublisher', entries: [[
+        sourceFile: 'router',
+        bucket: 'govuk-router-builds',
+        selectedRegion: 'eu-west-1',
+        noUploadOnFailure: true,
+        managedArtifacts: true,
+        flatten: true,
+        showDirectlyInBrowser: true,
+        keepForever: true,]],
+        profileName: 'govuk-router',
+        dontWaitForConcurrentBuildCompletion: false,
+      ])
+    }
 
     // Update GitHub Status
     stage("Push release tag") {
